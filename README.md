@@ -97,6 +97,42 @@ Set these in **Supabase Dashboard → Project Settings → Edge Functions → Se
 
 > To enable Google OAuth, follow the [Supabase guide](https://supabase.com/docs/guides/auth/social-login/auth-google) and add `http://localhost:5173/` to your redirect URLs.
 
+### Admin Setup
+
+ReqSmith does **not** use a separate admin password. Admin access is based on:
+
+- normal Supabase Auth login (email + password)
+- plus role `admin` in `public.user_roles`
+
+1. Create/sign in the user account normally.
+2. Open Supabase SQL Editor and run:
+
+```sql
+-- Replace with the email you want to promote
+with target_user as (
+  select id
+  from auth.users
+  where email = 'admin@example.com'
+  limit 1
+)
+insert into public.user_roles (user_id, role)
+select id, 'admin'::public.app_role
+from target_user
+on conflict (user_id) do update set role = excluded.role;
+```
+
+3. Sign out and sign in again. The `/admin` page is now available.
+
+To remove admin rights later:
+
+```sql
+update public.user_roles
+set role = 'user'::public.app_role
+where user_id = (
+  select id from auth.users where email = 'admin@example.com' limit 1
+);
+```
+
 ### Start
 
 ```bash
