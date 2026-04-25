@@ -2,6 +2,8 @@
 
 **AI-assisted requirements documentation** – Create professional PRDs, User Stories and specifications through AI-powered dialogue.
 
+Template repository: [github.com/danielcreutzburg/reqsmith-template](https://github.com/danielcreutzburg/reqsmith-template)
+
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-146%20passing-brightgreen)]()
 [![Built with AI](https://img.shields.io/badge/built%20with-AI%20%2B%20Human-blueviolet)]()
