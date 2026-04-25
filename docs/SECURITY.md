@@ -47,3 +47,12 @@ Das Brute-Force-/Lockout-Limit für Logins läuft **ausschließlich serverseitig
 **Fail-open Verhalten**
 
 Schlägt die Edge Function netzbedingt fehl, lässt der Hook den Login-Versuch zu (`allowed: true`), damit legitime Nutzer nicht ausgesperrt werden. Die eigentliche Authentifizierung erfolgt weiterhin gegen Supabase Auth.
+
+## Meldung von Sicherheitslücken
+
+Bitte melde potenzielle Sicherheitslücken **nicht** über öffentliche Issues.
+
+- Empfohlener Weg: GitHub Security Advisories (Private Vulnerability Reporting) in diesem Repository.
+- Alternativ: Kontakt an `security@example.com` (vor Veröffentlichung durch eigene Adresse ersetzen).
+
+Bitte gib eine kurze Reproduktionsbeschreibung, den potenziellen Impact und - falls möglich - einen Proof of Concept an.
