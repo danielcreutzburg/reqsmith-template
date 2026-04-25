@@ -4,6 +4,13 @@
 
 Template repository: [github.com/danielcreutzburg/reqsmith-template](https://github.com/danielcreutzburg/reqsmith-template)
 
+## How To Use This Template
+
+1. Click **Use this template** on GitHub to create your own repository.
+2. Replace placeholders (`<your-org>`, `your-project-ref`, `legal@example.com`) with your own values.
+3. Follow the **Quick Start** section, run migrations, and deploy Edge Functions.
+4. Optional: remove Lovable-specific helpers if you want a pure Supabase setup.
+
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-146%20passing-brightgreen)]()
 [![Built with AI](https://img.shields.io/badge/built%20with-AI%20%2B%20Human-blueviolet)]()
