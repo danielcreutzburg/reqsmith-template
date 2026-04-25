@@ -1,0 +1,20 @@
+# Replace this placeholder with your own Supabase project ref after `supabase link --project-ref <ref>`.
+project_id = "your-project-ref"
+
+[functions.chat]
+verify_jwt = false
+
+[functions.parse-pdf]
+verify_jwt = false
+
+[functions.score-document]
+verify_jwt = false
+
+[functions.admin-llm-settings]
+verify_jwt = false
+
+[functions.create-ticket]
+verify_jwt = false
+
+[functions.admin-users]
+verify_jwt = false

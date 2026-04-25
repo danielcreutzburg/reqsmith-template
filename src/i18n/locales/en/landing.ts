@@ -1,0 +1,38 @@
+/**
+ * Translations · EN · namespace: landing
+ * Auto-grouped by key prefix. Edit values freely; keys must stay flat strings
+ * because the i18n lookup uses the full dotted key.
+ */
+export const landing = {
+  "landing.badge": "AI-Powered",
+  "landing.heroTitle": "Requirements documents in minutes, not hours",
+  "landing.heroSubtitle": "ReqSmith uses AI to forge structured PRDs, user stories, and specs from your feature idea – with clarifying questions and real-time preview.",
+  "landing.cta": "Get started free",
+  "landing.featuresTitle": "Everything you need",
+  "landing.feature1.title": "AI Chat with follow-ups",
+  "landing.feature1.desc": "Describe your idea and the AI asks targeted follow-up questions before generating a complete document.",
+  "landing.feature2.title": "Professional Templates",
+  "landing.feature2.desc": "PRD, User Story, Feature Spec or custom templates – choose the right structure for your project.",
+  "landing.feature3.title": "Export & Share",
+  "landing.feature3.desc": "Export your documents as Markdown, DOCX or PDF and share them with your team.",
+  "landing.feature4.title": "Full-Text Search",
+  "landing.feature4.desc": "Search across all sessions, documents and chat messages instantly with ⌘K.",
+  "landing.feature5.title": "Real-Time Collaboration",
+  "landing.feature5.desc": "Work simultaneously with your team on documents – with comments and live cursors.",
+  "landing.feature6.title": "Offline Mode",
+  "landing.feature6.desc": "Keep working without internet. Your data syncs automatically when you're back online.",
+  "landing.howTitle": "How it works",
+  "landing.step1": "Choose a template – Pick a template or create your own.",
+  "landing.step2": "Describe your idea – Tell the AI about your feature. It will ask clarifying questions.",
+  "landing.step3": "Export your document – Your finished requirements document in seconds, ready to share.",
+  "landing.trustedTitle": "Built for professional teams",
+  "landing.trustedSubtitle": "Used by product owners, business analysts, and development teams worldwide.",
+  "landing.stat1.value": "10x",
+  "landing.stat1.label": "Faster than manual",
+  "landing.stat2.value": "5+",
+  "landing.stat2.label": "Document templates",
+  "landing.stat3.value": "100%",
+  "landing.stat3.label": "Offline-capable",
+  "landing.ctaTitle": "Ready to write better requirements?",
+  "landing.ctaSubtitle": "Start for free and create your first document in under 5 minutes.",
+} as const;

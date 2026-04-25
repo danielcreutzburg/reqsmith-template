@@ -1,0 +1,1 @@
+ALTER TABLE public.usage_counts ALTER COLUMN max_messages SET DEFAULT 7;

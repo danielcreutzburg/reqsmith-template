@@ -1,0 +1,38 @@
+/**
+ * Translations · DE · namespace: landing
+ * Auto-grouped by key prefix. Edit values freely; keys must stay flat strings
+ * because the i18n lookup uses the full dotted key.
+ */
+export const landing = {
+  "landing.badge": "KI-gestützt",
+  "landing.heroTitle": "Anforderungsdokumente in Minuten statt Stunden",
+  "landing.heroSubtitle": "ReqSmith nutzt KI, um aus Ihrer Feature-Idee strukturierte PRDs, User Stories und Specs zu schmieden – mit klärenden Rückfragen und Echtzeit-Vorschau.",
+  "landing.cta": "Kostenlos starten",
+  "landing.featuresTitle": "Alles, was Sie brauchen",
+  "landing.feature1.title": "KI-Chat mit Rückfragen",
+  "landing.feature1.desc": "Beschreiben Sie Ihre Idee und die KI stellt gezielte Rückfragen, bevor sie ein vollständiges Dokument generiert.",
+  "landing.feature2.title": "Professionelle Vorlagen",
+  "landing.feature2.desc": "PRD, User Story, Feature Spec oder eigene Vorlagen – wählen Sie die passende Struktur für Ihr Projekt.",
+  "landing.feature3.title": "Export & Teilen",
+  "landing.feature3.desc": "Exportieren Sie Ihre Dokumente als Markdown, DOCX oder PDF und teilen Sie sie mit Ihrem Team.",
+  "landing.feature4.title": "Volltextsuche",
+  "landing.feature4.desc": "Durchsuchen Sie alle Sessions, Dokumente und Chat-Nachrichten blitzschnell mit ⌘K.",
+  "landing.feature5.title": "Echtzeit-Kollaboration",
+  "landing.feature5.desc": "Arbeiten Sie gleichzeitig mit Ihrem Team an Dokumenten – mit Kommentaren und Live-Cursors.",
+  "landing.feature6.title": "Offline-Modus",
+  "landing.feature6.desc": "Arbeiten Sie auch ohne Internet weiter. Ihre Daten werden automatisch synchronisiert.",
+  "landing.howTitle": "So funktioniert's",
+  "landing.step1": "Vorlage wählen – Wählen Sie ein Template oder erstellen Sie Ihr eigenes.",
+  "landing.step2": "Idee beschreiben – Erzählen Sie der KI von Ihrem Feature. Sie stellt klärende Fragen.",
+  "landing.step3": "Dokument exportieren – Ihr fertiges Anforderungsdokument in Sekunden, bereit zum Teilen.",
+  "landing.trustedTitle": "Entwickelt für professionelle Teams",
+  "landing.trustedSubtitle": "Von Product Ownern, Business Analysten und Entwicklungsteams weltweit genutzt.",
+  "landing.stat1.value": "10x",
+  "landing.stat1.label": "Schneller als manuell",
+  "landing.stat2.value": "5+",
+  "landing.stat2.label": "Dokumentvorlagen",
+  "landing.stat3.value": "100%",
+  "landing.stat3.label": "Offline-fähig",
+  "landing.ctaTitle": "Bereit, bessere Anforderungen zu schreiben?",
+  "landing.ctaSubtitle": "Starten Sie jetzt kostenlos und erstellen Sie Ihr erstes Dokument in unter 5 Minuten.",
+} as const;

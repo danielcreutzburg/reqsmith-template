@@ -1,0 +1,1 @@
+DELETE FROM public.audit_logs WHERE entity_type = 'audit_write_check';
