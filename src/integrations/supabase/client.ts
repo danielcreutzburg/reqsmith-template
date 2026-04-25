@@ -12,10 +12,31 @@ if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
   throw new Error("Missing Supabase env vars. Please set VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY.");
 }
 
+const DEV_SUPABASE_PROXY_PREFIX = "/__supabase";
+
+const withDevSupabaseProxy = (url: string) =>
+  import.meta.env.DEV && url.startsWith(SUPABASE_URL)
+    ? url.replace(SUPABASE_URL, DEV_SUPABASE_PROXY_PREFIX)
+    : url;
+
+const proxiedFetch: typeof fetch = (input, init) => {
+  if (typeof input === "string") {
+    return fetch(withDevSupabaseProxy(input), init);
+  }
+  if (input instanceof URL) {
+    return fetch(withDevSupabaseProxy(input.toString()), init);
+  }
+  const proxiedRequest = new Request(withDevSupabaseProxy(input.url), input);
+  return fetch(proxiedRequest, init);
+};
+
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
 
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+  global: {
+    fetch: proxiedFetch,
+  },
   auth: {
     storage: localStorage,
     persistSession: true,
