@@ -4,7 +4,7 @@
 
 Template repository: [github.com/danielcreutzburg/reqsmith-template](https://github.com/danielcreutzburg/reqsmith-template)
 
-## How To Use This Template
+## How to Use This Template
 
 1. Click **Use this template** on GitHub to create your own repository.
 2. Replace placeholders (`<your-org>`, `your-project-ref`, `legal@example.com`) with your own values.
@@ -51,13 +51,13 @@ ReqSmith helps product managers, developers, and consultants create structured r
 ### Installation
 
 ```bash
-git clone https://github.com/<your-org>/reqsmith.git
-cd reqsmith
+git clone https://github.com/<your-org>/reqsmith-template.git
+cd reqsmith-template
 npm install
 cp .env.example .env
 ```
 
-> Replace `<your-org>` with the GitHub organization or user that hosts your fork. On Windows PowerShell use `Copy-Item .env.example .env` instead of `cp`.
+> Replace `<your-org>` with the GitHub organization or user that hosts your fork. If you rename the repository, update the clone URL and folder name accordingly. On Windows PowerShell use `Copy-Item .env.example .env` instead of `cp`.
 
 ### Environment Variables
 
