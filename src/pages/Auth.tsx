@@ -11,7 +11,6 @@ import { useLoginRateLimit } from "@/hooks/useLoginRateLimit";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
 
 export default function Auth() {
   const [mode, setMode] = useState<"login" | "signup" | "forgot">("login");
@@ -43,11 +42,14 @@ export default function Auth() {
   const handleGoogleLogin = async () => {
     setGoogleLoading(true);
     try {
-      const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: window.location.origin,
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/app`,
+        },
       });
-      if (result.error) {
-        toast({ title: t("auth.error"), description: String(result.error), variant: "destructive" });
+      if (error) {
+        toast({ title: t("auth.error"), description: error.message, variant: "destructive" });
       }
     } catch {
       toast({ title: t("auth.error"), description: "Google login failed", variant: "destructive" });

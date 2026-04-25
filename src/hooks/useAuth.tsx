@@ -35,20 +35,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signUp = useCallback(async (email: string, password: string, displayName: string) => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { display_name: displayName },
-        emailRedirectTo: window.location.origin,
-      },
-    });
-    return { error: error?.message ?? null };
+    try {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { display_name: displayName },
+          emailRedirectTo: window.location.origin,
+        },
+      });
+      return { error: error?.message ?? null };
+    } catch {
+      return {
+        error:
+          "Network error while contacting Supabase. Check internet connection, ad blockers, VPN/proxy, and browser tracking protection.",
+      };
+    }
   }, []);
 
   const signIn = useCallback(async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    return { error: error?.message ?? null };
+    try {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      return { error: error?.message ?? null };
+    } catch {
+      return {
+        error:
+          "Network error while contacting Supabase. Check internet connection, ad blockers, VPN/proxy, and browser tracking protection.",
+      };
+    }
   }, []);
 
   const signOut = useCallback(async () => {
