@@ -19,6 +19,10 @@ interface CheckResult {
  */
 export function useLoginRateLimit() {
   const check = useCallback(async (email: string): Promise<CheckResult> => {
+    // Local DX: avoid hard dependency on deployed Edge Functions during template setup.
+    if (import.meta.env.DEV) {
+      return { status: "ok", waitSeconds: 0 };
+    }
     try {
       const { data, error } = await supabase.functions.invoke("auth-rate-limit", {
         body: { action: "check", email },
@@ -37,6 +41,7 @@ export function useLoginRateLimit() {
   }, []);
 
   const clear = useCallback(async (email: string) => {
+    if (import.meta.env.DEV) return;
     try {
       await supabase.functions.invoke("auth-rate-limit", {
         body: { action: "clear", email },
