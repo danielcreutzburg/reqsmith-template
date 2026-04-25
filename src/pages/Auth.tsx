@@ -23,6 +23,7 @@ export default function Auth() {
   const [rateLimited, setRateLimited] = useState(false);
   const [waitSeconds, setWaitSeconds] = useState(0);
   const [networkIssue, setNetworkIssue] = useState(false);
+  const [diagLoading, setDiagLoading] = useState(false);
   const { user, signIn, signUp } = useAuth();
   const { check: checkRateLimit, clear: clearRateLimit } = useLoginRateLimit();
   const { t } = useLanguage();
@@ -38,6 +39,51 @@ export default function Auth() {
   }, [waitSeconds]);
 
   if (user) return <Navigate to="/app" replace />;
+
+  const runConnectivityCheck = async () => {
+    setDiagLoading(true);
+    try {
+      const projectUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
+      const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined;
+      if (!projectUrl || !key) {
+        toast({
+          title: "Supabase env missing",
+          description: "VITE_SUPABASE_URL or VITE_SUPABASE_PUBLISHABLE_KEY is not set.",
+          variant: "destructive",
+        });
+        return;
+      }
+      const normalizedUrl = projectUrl.trim().replace(/^["'](.*)["']$/, "$1");
+      const normalizedKey = key.trim().replace(/^["'](.*)["']$/, "$1");
+      const endpoint = `${normalizedUrl}/auth/v1/token?grant_type=password`;
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          apikey: normalizedKey,
+          Authorization: `Bearer ${normalizedKey}`,
+          "Content-Type": "application/json",
+          "x-client-info": "reqsmith-auth-diag",
+        },
+        body: JSON.stringify({
+          email: "connectivity-check@example.com",
+          password: "invalid-password",
+        }),
+      });
+      toast({
+        title: "Supabase connectivity OK",
+        description: `Auth endpoint reachable (${response.status}). Origin: ${window.location.origin}`,
+      });
+    } catch (err) {
+      const detail = err instanceof Error ? err.message : "Unknown error";
+      toast({
+        title: "Supabase connectivity failed",
+        description: `${detail}. Origin: ${window.location.origin}`,
+        variant: "destructive",
+      });
+    } finally {
+      setDiagLoading(false);
+    }
+  };
 
   const handleGoogleLogin = async () => {
     setGoogleLoading(true);
@@ -217,6 +263,19 @@ export default function Auth() {
                   <p className="font-medium text-foreground">{t("auth.networkIssueTitle")}</p>
                   <p>{t("auth.networkIssueDesc")}</p>
                 </div>
+              </div>
+            )}
+            {mode === "login" && (
+              <div className="mb-4">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full"
+                  onClick={runConnectivityCheck}
+                  disabled={diagLoading}
+                >
+                  {diagLoading ? "Connectivity check..." : "Supabase-Verbindung testen"}
+                </Button>
               </div>
             )}
 

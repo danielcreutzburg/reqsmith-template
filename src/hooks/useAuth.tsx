@@ -57,10 +57,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       return { error: error?.message ?? null };
-    } catch {
+    } catch (err) {
+      const details = err instanceof Error ? ` (${err.message})` : "";
       return {
         error:
-          "Network error while contacting Supabase. Check internet connection, ad blockers, VPN/proxy, and browser tracking protection.",
+          `Network error while contacting Supabase${details}. Check internet connection, ad blockers, VPN/proxy, and browser tracking protection.`,
       };
     }
   }, []);
