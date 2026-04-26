@@ -27,6 +27,9 @@ jobs:
       - name: Check removed dependencies
         run: npm run check:deps
 
+      - name: Secret scan
+        run: npm run check:secrets
+
       - name: Lint
         run: npm run lint
 
