@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
+import { buildFunctionUrl } from "@/integrations/supabase/functionUrl";
 
 export interface ScorecardData {
   strategy: { score: number; feedback: string };
@@ -23,7 +24,7 @@ interface DocumentScorecardProps {
   document: string;
 }
 
-const SCORE_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/score-document`;
+const SCORE_URL = buildFunctionUrl("score-document");
 
 const dimensionIcons = {
   strategy: TrendingUp,

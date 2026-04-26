@@ -14,6 +14,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Upload, Loader2 } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
+import { buildFunctionUrl } from "@/integrations/supabase/functionUrl";
 import { toast } from "@/hooks/use-toast";
 import type { CustomTemplateRow } from "../hooks/useCustomTemplates";
 
@@ -69,16 +70,13 @@ export function CustomTemplateDialog({
 
       const { data: { session } } = await supabase.auth.getSession();
 
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/parse-pdf`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${session?.access_token}`,
-          },
-          body: formData,
-        }
-      );
+      const response = await fetch(buildFunctionUrl("parse-pdf"), {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${session?.access_token}`,
+        },
+        body: formData,
+      });
 
       if (!response.ok) throw new Error("Parse failed");
 

@@ -18,9 +18,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
+import { buildFunctionUrl } from "@/integrations/supabase/functionUrl";
 import ReactMarkdown from "react-markdown";
 
-const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
+const CHAT_URL = buildFunctionUrl("chat");
 
 type SummaryType = "executive" | "elevator" | "stakeholder";
 

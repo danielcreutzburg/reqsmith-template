@@ -6,6 +6,7 @@ import { toast } from "@/hooks/use-toast";
 import { useLanguage } from "@/i18n/LanguageContext";
 import mammoth from "mammoth/mammoth.browser";
 import { supabase } from "@/integrations/supabase/client";
+import { buildFunctionUrl } from "@/integrations/supabase/functionUrl";
 
 interface DocumentImportButtonProps {
   onImport: (content: string, filename: string) => void;
@@ -34,16 +35,13 @@ export function DocumentImportButton({ onImport, variant = "empty", disabled }: 
         }
         const formData = new FormData();
         formData.append("file", file);
-        const res = await fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/parse-pdf`,
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${session.access_token}`,
-            },
-            body: formData,
-          }
-        );
+        const res = await fetch(buildFunctionUrl("parse-pdf"), {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${session.access_token}`,
+          },
+          body: formData,
+        });
         if (!res.ok) throw new Error("PDF parse failed");
         const data = await res.json();
         text = data.text;

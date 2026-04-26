@@ -3,10 +3,11 @@
  * Builds the request payload and handles HTTP-level errors.
  */
 import { supabase } from "@/integrations/supabase/client";
+import { buildFunctionUrl } from "@/integrations/supabase/functionUrl";
 import { markdownToSections, buildSectionIndex } from "@/features/editor/utils/markdownSections";
 import type { Template, ChatMode, AiPersona, Verbosity } from "@/types/chat";
 
-const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
+const CHAT_URL = buildFunctionUrl("chat");
 
 interface ApiMessage {
   role: "user" | "assistant";
