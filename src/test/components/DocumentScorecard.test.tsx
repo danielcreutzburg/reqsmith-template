@@ -14,6 +14,10 @@ vi.mock("@/integrations/supabase/client", () => ({
   },
 }));
 
+vi.mock("@/integrations/supabase/functionUrl", () => ({
+  buildFunctionUrl: vi.fn().mockReturnValue("/__supabase/functions/v1/score-document"),
+}));
+
 import { DocumentScorecard } from "@/features/scorecard/components/DocumentScorecard";
 import * as toastMod from "@/hooks/use-toast";
 const toast = (toastMod as any).__toast as ReturnType<typeof vi.fn>;
@@ -66,6 +70,15 @@ describe("DocumentScorecard", () => {
     );
     fireEvent.click(screen.getByRole("button"));
     await waitFor(() => expect(screen.getByText("71")).toBeInTheDocument());
+    expect((global as any).fetch).toHaveBeenCalledWith(
+      "/__supabase/functions/v1/score-document",
+      expect.objectContaining({
+        method: "POST",
+        headers: expect.objectContaining({
+          Authorization: "Bearer tok",
+        }),
+      }),
+    );
   });
 
   it("toasts on 429, 402 and 500", async () => {
