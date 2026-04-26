@@ -4,7 +4,7 @@ CREATE TABLE public.shared_documents (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   session_id uuid NOT NULL REFERENCES public.chat_sessions(id) ON DELETE CASCADE,
   user_id uuid NOT NULL,
-  share_token text NOT NULL UNIQUE DEFAULT encode(gen_random_bytes(24), 'hex'),
+  share_token text NOT NULL UNIQUE DEFAULT encode(extensions.gen_random_bytes(24), 'hex'),
   title text NOT NULL DEFAULT '',
   content text NOT NULL DEFAULT '',
   template_name text DEFAULT '',

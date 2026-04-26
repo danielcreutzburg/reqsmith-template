@@ -1,5 +1,4 @@
-# Replace this placeholder with your own Supabase project ref after `supabase link --project-ref <ref>`.
-project_id = "your-project-ref"
+project_id = "ctjtrhwpywfidijlfwpy"
 
 [functions.chat]
 verify_jwt = false

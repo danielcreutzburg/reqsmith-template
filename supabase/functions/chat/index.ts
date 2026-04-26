@@ -196,7 +196,7 @@ interface LlmConfig {
 }
 
 /** Resolve the LLM target: admin-configured custom endpoint, else Lovable Gateway. */
-async function resolveLlmConfig(defaultKey: string): Promise<LlmConfig> {
+async function resolveLlmConfig(defaultKey: string | null): Promise<LlmConfig> {
   const serviceClient = createClient(
     Deno.env.get("SUPABASE_URL")!,
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
@@ -215,9 +215,14 @@ async function resolveLlmConfig(defaultKey: string): Promise<LlmConfig> {
   }
 
   const isCustom = !!(settings?.api_url && customKey);
+  if (!isCustom && !defaultKey) {
+    throw new Error(
+      "No LLM key configured. Set an OpenRouter key in Admin > LLM settings or configure LOVABLE_API_KEY as fallback secret.",
+    );
+  }
   return {
     url: isCustom ? settings!.api_url : DEFAULT_AI_URL,
-    apiKey: isCustom ? customKey! : defaultKey,
+    apiKey: isCustom ? customKey! : (defaultKey as string),
     model: isCustom && settings?.model ? settings.model : DEFAULT_AI_MODEL,
     isCustom,
   };
@@ -240,8 +245,7 @@ serve(async (req) => {
     if (validation instanceof Response) return validation;
     const body = validation;
 
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY") ?? null;
 
     // 2) Auth ----------------------------------------------------------------
     const userId = await getUserIdFromRequest(req);

@@ -21,6 +21,8 @@ DROP TABLE IF EXISTS public.user_integrations CASCADE;
 -- 4. Recreate RLS policies on chat_sessions (owner-only, no collaborator logic)
 DROP POLICY IF EXISTS "Users and collaborators can update sessions" ON public.chat_sessions;
 DROP POLICY IF EXISTS "Users and collaborators can view sessions" ON public.chat_sessions;
+DROP POLICY IF EXISTS "Users can view own sessions" ON public.chat_sessions;
+DROP POLICY IF EXISTS "Users can update own sessions" ON public.chat_sessions;
 
 CREATE POLICY "Users can view own sessions"
 ON public.chat_sessions FOR SELECT
@@ -36,6 +38,8 @@ WITH CHECK (user_id = auth.uid());
 -- 5. Recreate RLS policies on chat_messages (owner-only)
 DROP POLICY IF EXISTS "Users and collaborators can update messages" ON public.chat_messages;
 DROP POLICY IF EXISTS "Users and collaborators can view messages" ON public.chat_messages;
+DROP POLICY IF EXISTS "Users can view own messages" ON public.chat_messages;
+DROP POLICY IF EXISTS "Users can update own messages" ON public.chat_messages;
 
 CREATE POLICY "Users can view own messages"
 ON public.chat_messages FOR SELECT
@@ -50,6 +54,8 @@ USING (EXISTS (SELECT 1 FROM chat_sessions s WHERE s.id = chat_messages.session_
 -- 6. Recreate RLS policies on document_versions (owner-only)
 DROP POLICY IF EXISTS "Users and collaborators can update document versions" ON public.document_versions;
 DROP POLICY IF EXISTS "Users and collaborators can view document versions" ON public.document_versions;
+DROP POLICY IF EXISTS "Users can view own document versions" ON public.document_versions;
+DROP POLICY IF EXISTS "Users can update own document versions" ON public.document_versions;
 
 CREATE POLICY "Users can view own document versions"
 ON public.document_versions FOR SELECT
