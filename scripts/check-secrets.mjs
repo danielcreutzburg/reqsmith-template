@@ -16,6 +16,7 @@ const secretPatterns = [
 
 const allowList = [
   { path: "src/test/security/safeLogger.test.ts", match: "Bearer SUPERSECRETTOKEN12345" },
+  { path: "scripts/check-secrets.mjs", match: "Bearer SUPERSECRETTOKEN12345" },
 ];
 
 const textFileExtensions = new Set([
