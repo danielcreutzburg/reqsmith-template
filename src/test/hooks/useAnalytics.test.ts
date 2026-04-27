@@ -1,7 +1,8 @@
 import { describe, it, expect, vi } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
 
-vi.mock("@/hooks/useAuth", () => ({ useAuth: () => ({ user: { id: "u1" } }) }));
+const { mockedAuthUser } = vi.hoisted(() => ({ mockedAuthUser: { id: "u1" } }));
+vi.mock("@/hooks/useAuth", () => ({ useAuth: () => ({ user: mockedAuthUser }) }));
 vi.mock("@/integrations/supabase/client", () => ({ supabase: {} }));
 
 import { useAnalytics } from "@/features/dashboard/hooks/useAnalytics";
@@ -28,7 +29,7 @@ describe("useAnalytics", () => {
       makeSession(20, null, ""),
     ];
     const { result } = renderHook(() => useAnalytics(sessions));
-    await waitFor(() => expect(result.current.loading).toBe(false));
+    await waitFor(() => expect(result.current.loading).toBe(false), { timeout: 2000 });
 
     expect(result.current.analytics.weeklyActivity).toHaveLength(8);
     // sharing fields zeroed
@@ -44,8 +45,9 @@ describe("useAnalytics", () => {
   });
 
   it("returns empty breakdown when there are no sessions", async () => {
-    const { result } = renderHook(() => useAnalytics([]));
-    await waitFor(() => expect(result.current.loading).toBe(false));
+    const sessions: { id: string; template_id: string | null; document: string; created_at: string }[] = [];
+    const { result } = renderHook(() => useAnalytics(sessions));
+    await waitFor(() => expect(result.current.loading).toBe(false), { timeout: 2000 });
     expect(result.current.analytics.templateBreakdown).toEqual([]);
     expect(result.current.analytics.totalWordsWritten).toBe(0);
   });

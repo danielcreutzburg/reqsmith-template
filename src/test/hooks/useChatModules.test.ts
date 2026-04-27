@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import "../mocks/supabase";
 import { buildApiMessages } from "@/features/chat/hooks/useChatApi";
 import { extractPersistContent } from "@/features/chat/hooks/useChatPersistence";
 

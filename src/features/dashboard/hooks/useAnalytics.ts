@@ -13,6 +13,7 @@ export interface AnalyticsData {
 
 export function useAnalytics(sessions: { id: string; template_id: string | null; document: string; created_at: string }[]) {
   const { user } = useAuth();
+  const userId = user?.id;
   const [data, setData] = useState<AnalyticsData>({
     sharedDocsCount: 0,
     totalComments: 0,
@@ -24,7 +25,10 @@ export function useAnalytics(sessions: { id: string; template_id: string | null;
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) return;
+    if (!userId) {
+      setLoading(false);
+      return;
+    }
 
     const fetchAnalytics = async () => {
       setLoading(true);
@@ -88,7 +92,7 @@ export function useAnalytics(sessions: { id: string; template_id: string | null;
     };
 
     fetchAnalytics();
-  }, [user, sessions]);
+  }, [userId, sessions]);
 
   return { analytics: data, loading };
 }
