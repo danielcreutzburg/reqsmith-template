@@ -48,6 +48,12 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[60] focus:px-3 focus:py-2 focus:rounded-md focus:bg-primary focus:text-primary-foreground"
+      >
+        {language === "de" ? "Zum Hauptinhalt springen" : "Skip to main content"}
+      </a>
       {/* Header */}
       <header className="h-14 border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-50">
         <div className="h-full px-4 md:px-8 flex items-center justify-between max-w-6xl mx-auto w-full">
@@ -102,6 +108,9 @@ export default function Landing() {
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             {t("landing.heroSubtitle")}
           </p>
+          <p className="text-sm text-muted-foreground/90">
+            {t("landing.hobbyNotice")}
+          </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
             <Button size="lg" asChild>
               <Link to="/auth" className="gap-2">
@@ -148,9 +157,7 @@ export default function Landing() {
               {t("landing.featuresTitle")}
             </h2>
             <p className="text-muted-foreground mt-3 max-w-xl mx-auto">
-              {language === "de"
-                ? "Von KI-gestützter Generierung bis Offline-Modus – alle Werkzeuge für professionelle Anforderungsdokumentation."
-                : "From AI-powered generation to offline mode – all the tools for professional requirements documentation."}
+              {t("landing.featuresSubtitle")}
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
